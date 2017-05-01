@@ -5,18 +5,24 @@
 #include <QDebug>
 #include <QtWidgets>
 #include <QTimer>
+#include <QThread>
 
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
-
-
 {
     ui->setupUi(this);
     arduino_is_available = false;
     arduino = new QSerialPort; //creates a new serial port object
+    //QTimer *pButtonTimer = new QTimer;
+    //pButtonTimer->setInterval(500);
+    //pMyThread = new MyThread;
 
+
+    //connect(pButtonTimer, SIGNAL(timeout()), this, SLOT(sendData()));
+    //connect(ui->forwardButton,SIGNAL(pressed()),pButtonTimer,SLOT(start()));
+    //connect(ui->forwardButton,SIGNAL(released()),pButtonTimer,SLOT(stop()));
 
     //Lists all available ports scanned to determine which one the robot is using
     qDebug() << "Number of available ports: " << QSerialPortInfo::availablePorts().length(); //Returns the number of ports in use
@@ -40,10 +46,6 @@ MainWindow::MainWindow(QWidget *parent) :
         QMessageBox::warning(this, "Port error", "Couldn't find the Arduino!");
     }
 
-    pButtonTimer = new QTimer;
-    connect(pButtonTimer, SIGNAL(timeout()), this, SLOT(sendData()));
-
-
 }
 
 MainWindow::~MainWindow()
@@ -58,28 +60,85 @@ MainWindow::~MainWindow()
 
 
 
-int i = 0;
+
+
+
+
 void MainWindow::on_forwardButton_pressed()
 {
-    pButtonTimer->start(1000);
+
     ui->label->setText("Moving");
     qDebug() << "Button Pushed";
+    sendData(forwardCommand);
 }
 
 void MainWindow::on_forwardButton_released()
 {
-    pButtonTimer->stop();
+    qDebug() << "Button released is running";
+    sendData(stopCommand);
+    qDebug() <<"Stop command sent";
 }
 
-void MainWindow::sendData(){
-    i++;
-    qDebug() << i << "sendData is running";
+
+
+
+
+
+
+void MainWindow::sendData(QString command){
+    qDebug() << "sendData is running";
     if(arduino->isWritable()){
+        //arduino->write("moveC");
         arduino->write(command.toStdString().c_str());
-        qDebug() << i << "arduino is writable with command " << command;
+        qDebug() << "arduino is writable with command ";
+        arduino->waitForBytesWritten(2000);
+        qDebug() <<"Data has been written";
     }
     else{qDebug() << "Couldn't write to serial!";}
 }
 
 
 
+
+
+void MainWindow::on_leftButton_pressed()
+{
+    ui->label->setText("Moving");
+    qDebug() << "Button Pushed";
+    sendData(leftCommand);
+}
+
+void MainWindow::on_leftButton_released()
+{
+    qDebug() << "Button released is running";
+    sendData(stopCommand);
+    qDebug() <<"Stop command sent";
+}
+
+void MainWindow::on_backButton_pressed()
+{
+    ui->label->setText("Moving");
+    qDebug() << "Button Pushed";
+    sendData(backCommand);
+}
+
+void MainWindow::on_backButton_released()
+{
+    qDebug() << "Button released is running";
+    sendData(stopCommand);
+    qDebug() <<"Stop command sent";
+}
+
+void MainWindow::on_rightButton_pressed()
+{
+    ui->label->setText("Moving");
+    qDebug() << "Button Pushed";
+    sendData(rightCommand);
+}
+
+void MainWindow::on_rightButton_released()
+{
+    qDebug() << "Button released is running";
+    sendData(stopCommand);
+    qDebug() <<"Stop command sent";
+}
