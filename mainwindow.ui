@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>677</width>
+    <height>478</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,14 +17,24 @@
    <widget class="QToolButton" name="forwardButton">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>110</y>
-      <width>61</width>
-      <height>51</height>
+      <x>260</x>
+      <y>210</y>
+      <width>111</width>
+      <height>101</height>
      </rect>
     </property>
     <property name="text">
-     <string>Forward</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../../../Downloads/SPARKI Icons/Alarm-Arrow-Up-icon.png</normaloff>../../../../Downloads/SPARKI Icons/Alarm-Arrow-Up-icon.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>100</width>
+      <height>100</height>
+     </size>
     </property>
     <property name="autoRepeat">
      <bool>false</bool>
@@ -33,49 +43,82 @@
      <number>100</number>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_2">
+   <widget class="QToolButton" name="backButton">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>160</y>
-      <width>61</width>
-      <height>51</height>
+      <x>260</x>
+      <y>310</y>
+      <width>111</width>
+      <height>101</height>
      </rect>
     </property>
     <property name="text">
      <string>Back</string>
     </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../../../Downloads/SPARKI Icons/Alarm-Arrow-Down-icon.png</normaloff>../../../../Downloads/SPARKI Icons/Alarm-Arrow-Down-icon.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>100</width>
+      <height>100</height>
+     </size>
+    </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_3">
+   <widget class="QToolButton" name="rightButton">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>160</y>
-      <width>61</width>
-      <height>51</height>
+      <x>370</x>
+      <y>310</y>
+      <width>111</width>
+      <height>101</height>
      </rect>
     </property>
     <property name="text">
      <string>Right</string>
     </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../../../Downloads/SPARKI Icons/Alarm-Arrow-Right-icon.png</normaloff>../../../../Downloads/SPARKI Icons/Alarm-Arrow-Right-icon.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>100</width>
+      <height>100</height>
+     </size>
+    </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_4">
+   <widget class="QToolButton" name="leftButton">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>160</y>
-      <width>61</width>
-      <height>51</height>
+      <x>150</x>
+      <y>310</y>
+      <width>111</width>
+      <height>101</height>
      </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
     </property>
     <property name="text">
      <string>Left</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../../../Downloads/SPARKI Icons/Alarm-Arrow-Left-icon.png</normaloff>../../../../Downloads/SPARKI Icons/Alarm-Arrow-Left-icon.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>100</width>
+      <height>100</height>
+     </size>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>360</x>
       <y>20</y>
       <width>133</width>
       <height>20</height>
@@ -104,8 +147,8 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>256</x>
-      <y>50</y>
+      <x>270</x>
+      <y>160</y>
       <width>101</width>
       <height>20</height>
      </rect>
@@ -139,7 +182,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>677</width>
      <height>21</height>
     </rect>
    </property>
