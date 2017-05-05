@@ -15,14 +15,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     arduino_is_available = false;
     arduino = new QSerialPort; //creates a new serial port object
-    //QTimer *pButtonTimer = new QTimer;
-    //pButtonTimer->setInterval(500);
-    //pMyThread = new MyThread;
 
-
-    //connect(pButtonTimer, SIGNAL(timeout()), this, SLOT(sendData()));
-    //connect(ui->forwardButton,SIGNAL(pressed()),pButtonTimer,SLOT(start()));
-    //connect(ui->forwardButton,SIGNAL(released()),pButtonTimer,SLOT(stop()));
+    connect(ui->forwardButton, SIGNAL(clicked(bool)),this, SLOT(sendData(stopCommand)));
+    connect(ui->backButton, SIGNAL(clicked(bool)),this, SLOT(sendData(stopCommand)));
+    connect(ui->leftButton, SIGNAL(clicked(bool)),this, SLOT(sendData(stopCommand)));
+    connect(ui->rightButton, SIGNAL(clicked(bool)),this, SLOT(sendData(stopCommand)));
 
     //Lists all available ports scanned to determine which one the robot is using
     qDebug() << "Number of available ports: " << QSerialPortInfo::availablePorts().length(); //Returns the number of ports in use
@@ -59,11 +56,6 @@ MainWindow::~MainWindow()
 
 
 
-
-
-
-
-
 void MainWindow::on_forwardButton_pressed()
 {
 
@@ -80,11 +72,6 @@ void MainWindow::on_forwardButton_released()
 }
 
 
-
-
-
-
-
 void MainWindow::sendData(QString command){
     qDebug() << "sendData is running";
     if(arduino->isWritable()){
@@ -97,6 +84,19 @@ void MainWindow::sendData(QString command){
     else{qDebug() << "Couldn't write to serial!";}
 }
 
+void MainWindow::sendSpeed(QString speed){
+    qDebug() << speed;
+    QString sendSpeed = speedCommand + speed;
+    qDebug() << "sendSpeed is running" << sendSpeed;
+    if(arduino->isWritable()){
+        arduino->write(sendSpeed.toStdString().c_str());
+        arduino->waitForBytesWritten(2000);
+        sendSpeed = "";
+        speed = "";
+        qDebug() <<"Data has been written with value of: " << sendSpeed;
+    }
+    else{qDebug() << "Couldn't write to serial!";}
+}
 
 
 
@@ -141,4 +141,12 @@ void MainWindow::on_rightButton_released()
     qDebug() << "Button released is running";
     sendData(stopCommand);
     qDebug() <<"Stop command sent";
+}
+
+void MainWindow::on_transmitButton_clicked()
+{
+    qDebug() <<"Transmit Button Pressed. Preparing to send data...";
+    sendSpeed(ui->lineEdit->displayText());
+    qDebug() <<"Transmission Complete";
+    ui->lineEdit->clear();
 }

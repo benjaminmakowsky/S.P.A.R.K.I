@@ -31,9 +31,13 @@ private slots:
     void on_rightButton_pressed();
     void on_rightButton_released();
 
+
+    void on_transmitButton_clicked();
+
 public slots:
 
     void sendData(QString command);
+    void sendSpeed(QString speed);
 
 private:
     Ui::MainWindow *ui;
@@ -42,11 +46,12 @@ private:
     bool arduino_is_available;
 
     //Command Strings
-    QString forwardCommand = "moveC 175";
-    QString leftCommand = "leftC 175";
-    QString rightCommand = "rightC 175";
-    QString backCommand = "backC 175";
+    QString forwardCommand = "moveC";
+    QString leftCommand = "leftC";
+    QString rightCommand = "rightC";
+    QString backCommand = "backC";
     QString stopCommand = "stopC";
+    QString speedCommand = "setSpeed ";
 
 };
 
