@@ -7,7 +7,7 @@ BLEPeripheral blePeripheral; //creates a bluetooth object
 BLEService motorService("19B10000-E8F2-537E-4F6C-D104768A1214");
 BLECharCharacteristic directionCharacteristic("19B10001-E8F2-537E-4F6C-D104768A1214", BLERead|BLEWrite);
 
-//BLECharacteristic directionCharacteristic("19B10001-E8F2-537E-4F6C-D104768A1214", BLERead|BLEWrite, 1);
+//BLECharacteristic directionCharacteristic("19B10001-E8F2-537E-4F6C-D104768A1214", BLERead|BLEWrite, 10);
 Adafruit_MotorShield AFMS = Adafruit_MotorShield(); //creates adafruit motorshield object
 Adafruit_DCMotor *myMotor = AFMS.getMotor(1); //creates a motor
 Adafruit_DCMotor *myMotorTwo = AFMS.getMotor(4); //creates the second motor
@@ -16,6 +16,7 @@ String input = ""; //incoming string
 String command = ""; //command string
 String speed = ""; //string to hold speed 
 int motorSpeed = 0; //Max speed is 255
+int control = 0;
 
 
 
@@ -24,8 +25,8 @@ void setup() {
   Serial.begin(9600); //set on computer as COM? for bluetooth
   Serial.println("Begin"); //begins communication with serial
   AFMS.begin(); //starts the motor shield
-  myMotor->setSpeed(175); //sets initial speed
-  myMotorTwo->setSpeed(175); //sets initial speed
+  myMotor->setSpeed(210); //sets initial speed
+  myMotorTwo->setSpeed(210); //sets initial speed
 
  /*Bluetooth setup*/
 blePeripheral.setLocalName("SPARKI"); //name to be displayed on bluetooth finder
@@ -47,16 +48,18 @@ void loop() {
 
 void directionCharacterisiticWritten(BLECentral& central, BLECharacteristic& characteristic){
   Serial.print("Charactersitic event, written: ");
-  Serial.println(directionCharacteristic.stringValue());
+  Serial.println(directionCharacteristic.value());
   if(directionCharacteristic.value()){
     
-    input = directionCharacteristic.stringValue();
+    input = directionCharacteristic.value();
     Serial.print("Input Value: ");
     Serial.println(input);
     //Following section parses the input string to control what happens to the robot
     int index = 0;
     index = input.indexOf(" "); //find the first occurence of a space
-    command = input.substring(0, index); //parses a string from the first word in the input
+    command = input.substring(0, 1); //parses a string from the first word in the input
+    Serial.print("Comamnd is: ");
+    Serial.println(command);
 
      /*This section sets the speed of the robot*/
       if(command == "setSpeed"){
@@ -79,7 +82,7 @@ void directionCharacterisiticWritten(BLECentral& central, BLECharacteristic& cha
       }
         
       /*This section of code stops all running motors*/  
-      else if(input == "s"){
+      else if(command == "s"){
          Serial.print(command);
          Serial.println(" has reached the execution loop");
          myMotor->run(RELEASE);
