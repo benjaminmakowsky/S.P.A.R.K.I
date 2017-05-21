@@ -4,8 +4,6 @@
 #include <QSerialPortInfo>
 #include <QDebug>
 #include <QtWidgets>
-#include <QTimer>
-#include <QThread>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -13,9 +11,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     arduino_is_available = false;
     arduino = new QSerialPort; //creates a new serial port object
 
+    /*Section for connecting a click of all the directional arrows to
+     * the stop command to prevent a continuous drive loop from occuring*/
     connect(ui->forwardButton, SIGNAL(clicked(bool)),this, SLOT(sendData(stopCommand)));
     connect(ui->backButton, SIGNAL(clicked(bool)),this, SLOT(sendData(stopCommand)));
     connect(ui->leftButton, SIGNAL(clicked(bool)),this, SLOT(sendData(stopCommand)));
@@ -31,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     if(arduino_is_available){
         // open and configure the serialport
-        arduino->setPortName("COM9"); //the com port on my computer that the arduino connects to. MAKE OPTION FOR USER TO PICK!
+        arduino->setPortName("COM9"); //the com port on my computer that the arduino connects to.
         arduino->open(QSerialPort::WriteOnly); //sets it so that only user can only send data to robot
         arduino->setBaudRate(QSerialPort::Baud9600);//sets the BAUD rate which determines how fast it is communicating
         arduino->setDataBits(QSerialPort::Data8);//sets the number of bits to be transmitted
@@ -59,7 +60,6 @@ MainWindow::~MainWindow()
 void MainWindow::on_forwardButton_pressed()
 {
 
-    ui->label->setText("Moving");
     qDebug() << "Button Pushed";
     sendData(forwardCommand);
 }
@@ -77,22 +77,22 @@ void MainWindow::sendData(QString command){
     if(arduino->isWritable()){
         //arduino->write("moveC");
         arduino->write(command.toStdString().c_str());
-        qDebug() << "arduino is writable with command ";
+        qDebug() << "arduino is writable with command " << command;
         arduino->waitForBytesWritten(2000);
         qDebug() <<"Data has been written";
     }
     else{qDebug() << "Couldn't write to serial!";}
 }
 
-void MainWindow::sendSpeed(QString speed){
+void MainWindow::sendSpeed(int speed){
     qDebug() << speed;
-    QString sendSpeed = speedCommand + speed;
+    QString sendSpeed = speedCommand + QString::number(speed);
     qDebug() << "sendSpeed is running" << sendSpeed;
     if(arduino->isWritable()){
         arduino->write(sendSpeed.toStdString().c_str());
         arduino->waitForBytesWritten(2000);
         sendSpeed = "";
-        speed = "";
+        //speed = "";
         qDebug() <<"Data has been written with value of: " << sendSpeed;
     }
     else{qDebug() << "Couldn't write to serial!";}
@@ -103,7 +103,6 @@ void MainWindow::sendSpeed(QString speed){
 
 void MainWindow::on_leftButton_pressed()
 {
-    ui->label->setText("Moving");
     qDebug() << "Button Pushed";
     sendData(leftCommand);
 }
@@ -117,7 +116,6 @@ void MainWindow::on_leftButton_released()
 
 void MainWindow::on_backButton_pressed()
 {
-    ui->label->setText("Moving");
     qDebug() << "Button Pushed";
     sendData(backCommand);
 }
@@ -131,7 +129,6 @@ void MainWindow::on_backButton_released()
 
 void MainWindow::on_rightButton_pressed()
 {
-    ui->label->setText("Moving");
     qDebug() << "Button Pushed";
     sendData(rightCommand);
 }
@@ -143,10 +140,14 @@ void MainWindow::on_rightButton_released()
     qDebug() <<"Stop command sent";
 }
 
-void MainWindow::on_transmitButton_clicked()
+void MainWindow::on_speedSlider_sliderReleased()
 {
-    qDebug() <<"Transmit Button Pressed. Preparing to send data...";
-    sendSpeed(ui->lineEdit->displayText());
+    qDebug() <<"Sending new speed value. Preparing to send data...";
+    sendSpeed(ui->speedSlider->value());
     qDebug() <<"Transmission Complete";
-    ui->lineEdit->clear();
+}
+
+void MainWindow::on_speedSlider_valueChanged(int value)
+{
+    ui->speedBar->setValue(value);
 }
