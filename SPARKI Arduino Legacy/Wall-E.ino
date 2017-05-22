@@ -12,11 +12,10 @@ LiquidCrystal lcd (12, 11, 5, 4, 3, 2);
 
 //Global Variables used during the program
 String input = "";
-int index = 0;
 String command = ""; //stores the command string parsed from the input string
 String speed = ""; //holds the speed value for the incoming speed command to be converted to motor speed
 int motorSpeed = 175; //Max speed is 250
-SoftwareSerial bSerial(0,1); //Creates the serial object using pins 0 and 1 instead of the on board BLE serial
+SoftwareSerial bSerial(6,7); //Creates the serial object using pins 0 and 1 instead of the on board BLE serial
 
 
 void setup() {
@@ -42,7 +41,7 @@ void loop() {
     input = bSerial.readString(); //records string value from the incoming bluetooth
     Serial.println(input); //Debug code to test what in comming string is
   	
-    index = 0;
+    int index = 0;
   	//Following section parses the input string to control what happens to the robot
   	index = input.indexOf(" "); //find the first occurence of a space
   	command = input.substring(0, index); //parses a string from the first word in the input
