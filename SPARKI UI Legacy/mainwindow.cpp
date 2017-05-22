@@ -73,7 +73,7 @@ void MainWindow::on_forwardButton_released()
 
 
 void MainWindow::sendData(QString command){
-    qDebug() << "sendData is running";
+    qDebug() << "sendData is running with command " << command;
     if(arduino->isWritable()){
         //arduino->write("moveC");
         arduino->write(command.toStdString().c_str());

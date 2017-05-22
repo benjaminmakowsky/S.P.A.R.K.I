@@ -28,7 +28,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../../../Downloads/SPARKI Icons/Alarm-Arrow-Up-icon.png</normaloff>../../../../Downloads/SPARKI Icons/Alarm-Arrow-Up-icon.png</iconset>
+      <normaloff>../../../Downloads/SPARKI Icons/Alarm-Arrow-Up-icon.png</normaloff>../../../Downloads/SPARKI Icons/Alarm-Arrow-Up-icon.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -57,7 +57,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../../../Downloads/SPARKI Icons/Alarm-Arrow-Down-icon.png</normaloff>../../../../Downloads/SPARKI Icons/Alarm-Arrow-Down-icon.png</iconset>
+      <normaloff>../../../Downloads/SPARKI Icons/Alarm-Arrow-Down-icon.png</normaloff>../../../Downloads/SPARKI Icons/Alarm-Arrow-Down-icon.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -80,7 +80,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../../../Downloads/SPARKI Icons/Alarm-Arrow-Right-icon.png</normaloff>../../../../Downloads/SPARKI Icons/Alarm-Arrow-Right-icon.png</iconset>
+      <normaloff>../../../Downloads/SPARKI Icons/Alarm-Arrow-Right-icon.png</normaloff>../../../Downloads/SPARKI Icons/Alarm-Arrow-Right-icon.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -106,7 +106,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../../../Downloads/SPARKI Icons/Alarm-Arrow-Left-icon.png</normaloff>../../../../Downloads/SPARKI Icons/Alarm-Arrow-Left-icon.png</iconset>
+      <normaloff>../../../Downloads/SPARKI Icons/Alarm-Arrow-Left-icon.png</normaloff>../../../Downloads/SPARKI Icons/Alarm-Arrow-Left-icon.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -154,6 +154,26 @@
     </property>
     <property name="format">
      <string>%v</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>10</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="text">
+     <string>Throttle</string>
     </property>
    </widget>
   </widget>
